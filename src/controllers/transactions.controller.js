@@ -37,10 +37,8 @@ export async function postTransaction(req, res) {
 export async function getTransaction(req, res) {
   const { authorization } = req.headers;
 
-  console.log(authorization);
-
   const token = authorization?.replace("Bearer ", "");
-  console.log(token);
+
   if (!token) return res.status(401).send("Invalid token!\nPlease login again!");
 
   try {
