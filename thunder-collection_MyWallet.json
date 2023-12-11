@@ -1,0 +1,104 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "MyWallet",
+    "dateExported": "2023-12-11T10:57:10.687Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "8b4590ce-4e1d-4313-b683-d50f4de6174f",
+            "colId": "284e5bae-9559-4f75-bc4b-bf664a9e19cd",
+            "containerId": "",
+            "name": "/signUp",
+            "url": "localhost:5000/signUp",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-07-06T11:15:51.731Z",
+            "modified": "2023-12-11T10:49:33.196Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"username\",\n  \"email\": \"username@gmail.com\",\n  \"password\": \"Ja4eKyvrlD1d84q\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f0c3fa56-d8e5-43dc-806e-d1e5c5a15c59",
+            "colId": "284e5bae-9559-4f75-bc4b-bf664a9e19cd",
+            "containerId": "",
+            "name": "/signIn",
+            "url": "localhost:5000/signIn",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-07-06T19:25:10.234Z",
+            "modified": "2023-12-11T10:49:35.431Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"username@gmail.com\",\n  \"password\": \"Ja4eKyvrlD1d84q\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a98d3b06-03db-4dac-9e9b-46635b5679fa",
+            "colId": "284e5bae-9559-4f75-bc4b-bf664a9e19cd",
+            "containerId": "",
+            "name": "/new-transaction/entrada",
+            "url": "localhost:5000/new-transaction/income",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-07-08T19:59:31.381Z",
+            "modified": "2023-12-11T10:50:01.292Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "543a0a24-fa79-4691-b08c-cba1733bd802"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua\",\n  \"amount\": 100.00\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "65362a7f-8881-4db7-864d-d20fdc1ac6f6",
+            "colId": "284e5bae-9559-4f75-bc4b-bf664a9e19cd",
+            "containerId": "",
+            "name": "/transactions",
+            "url": "localhost:5000/transactions",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-07-08T20:23:01.146Z",
+            "modified": "2023-12-11T10:50:06.794Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "543a0a24-fa79-4691-b08c-cba1733bd802"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d15dbd7c-209c-4b6a-8c26-bc710ca50d9e",
+            "colId": "284e5bae-9559-4f75-bc4b-bf664a9e19cd",
+            "containerId": "",
+            "name": "/health",
+            "url": "localhost:5000/health",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-12-10T19:13:43.389Z",
+            "modified": "2023-12-10T19:13:49.695Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
