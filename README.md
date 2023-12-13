@@ -106,7 +106,7 @@ Once the process is finished, just start the server.
 npm start
 ```
 
-Or to test on a production server.
+Or to test on a development server.
 
 ```
 npm run dev
