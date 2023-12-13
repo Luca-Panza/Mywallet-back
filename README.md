@@ -12,7 +12,7 @@
 
 ##  :clipboard: Description
 
-This project is a backend API for a personal financial management system, built using Node.js and Express. It focuses on managing users financial transactions, enabling them to record their income and expenses. The system provides functionalities to add transactions and view a detailed history of their finances. It employs technologies such as MongoDB and JavaScript, ensuring an efficient and well-structured layered architecture.
+This project is a backend API for a personal financial management system, built using Node.js and Express. It focuses on managing users' financial transactions, enabling them to record their income and expenses. The system provides functionalities to add transactions and view a detailed history of their finances. It employs technologies such as MongoDB and JavaScript, ensuring an efficient and well-structured layered architecture.
 
 Deployment on Render: <a href="https://mywallet-api-njln.onrender.com" target="_blank">Api MyWallet Deploy</a>
 ***
@@ -40,7 +40,7 @@ POST /signUp
         "name": "string",
         "email": "string",
         "password": "string"
-    }
+       }
 ```
     
 ```yml 
@@ -50,7 +50,7 @@ POST /signIn
     - body: {
         "email": "string",
         "password": "string"
-    }
+       }
 ```
     
 ```yml 
@@ -59,11 +59,11 @@ POST /new-transaction/:id
     - id: income or expense
     - headers: {
         "Authorization": `Bearer ${token}`
-    }
+       }
     - body: {
         "description": "string",
         "amount": "number"
-    }
+       }
 ```
 
 ```yml 
@@ -72,7 +72,7 @@ GET /transactions
     - params: {}
     - headers: {
         "Authorization": `Bearer ${token}`
-    }
+       }
     - body: {}
 ```
 
