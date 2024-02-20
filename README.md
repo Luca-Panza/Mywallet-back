@@ -85,7 +85,7 @@ Make sure you have the latest installed stable version of [Node.js](https://node
 First, clone this repository on your machine:
 
 ```
-git clone https://github.com/Luca-Panza/projeto14-mywallet-back
+git clone https://github.com/Luca-Panza/Mywallet-back
 ```
 
 Before starting the application, make sure MongoDB is running on your machine by executing the following command:
