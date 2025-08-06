@@ -152,3 +152,106 @@ export async function getTransactionsSummary(req, res) {
     return res.status(500).send(e.message);
   }
 }
+
+export async function deleteTransaction(req, res) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const token = authorization?.replace("Bearer ", "");
+
+  if (!token) return res.status(401).send("Invalid token!\nPlease login again!");
+
+  try {
+    const user = await db.collection("sessions").findOne({ token: token });
+    if (!user) return res.status(401).send("Invalid token!\nPlease login again!");
+
+    const transaction = await db.collection("transactions").findOne({ 
+      _id: new ObjectId(id), 
+      id: user.id 
+    });
+    
+    if (!transaction) return res.status(404).send("Transaction not found!");
+
+    await db.collection("transactions").deleteOne({ 
+      _id: new ObjectId(id), 
+      id: user.id 
+    });
+
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}
+
+export async function updateTransaction(req, res) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const { description, amount, categoryId } = req.body;
+  const token = authorization?.replace("Bearer ", "");
+
+  if (!token) return res.status(401).send("Invalid token!\nPlease login again!");
+
+  try {
+    const user = await db.collection("sessions").findOne({ token: token });
+    if (!user) return res.status(401).send("Invalid token!\nPlease login again!");
+
+    const transaction = await db.collection("transactions").findOne({ 
+      _id: new ObjectId(id), 
+      id: user.id 
+    });
+    
+    if (!transaction) return res.status(404).send("Transaction not found!");
+
+    const updateData = {
+      description: stripHtml(description).result.trim(),
+      amount: parseFloat(amount.toFixed(2)),
+    };
+
+    if (categoryId) {
+      const category = await db.collection("categories").findOne({
+        _id: new ObjectId(categoryId),
+        userId: user.id
+      });
+      if (!category) return res.status(400).send("Invalid category!");
+
+      if (category.type !== transaction.type) {
+        return res.status(400).send("Category type does not match transaction type!");
+      }
+      updateData.categoryId = categoryId;
+    } else {
+      updateData.categoryId = null;
+    }
+
+    await db.collection("transactions").updateOne(
+      { _id: new ObjectId(id), id: user.id },
+      { $set: updateData }
+    );
+
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}
+
+export async function getTransactionById(req, res) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const token = authorization?.replace("Bearer ", "");
+
+  if (!token) return res.status(401).send("Invalid token!\nPlease login again!");
+
+  try {
+    const user = await db.collection("sessions").findOne({ token: token });
+    if (!user) return res.status(401).send("Invalid token!\nPlease login again!");
+
+    const transaction = await db.collection("transactions").findOne({ 
+      _id: new ObjectId(id), 
+      id: user.id 
+    });
+    
+    if (!transaction) return res.status(404).send("Transaction not found!");
+
+    return res.send(transaction);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}

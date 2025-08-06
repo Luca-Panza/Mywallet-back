@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postTransaction, getTransaction, getTransactionsSummary } from "../controllers/transactions.controller.js";
+import { postTransaction, getTransaction, getTransactionsSummary, deleteTransaction, updateTransaction, getTransactionById } from "../controllers/transactions.controller.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import { transactionHeadersSchema, transactionParamsSchema, transactionBodySchema } from "../schemas/transaction.schema.js";
 
@@ -17,6 +17,21 @@ transactionRouter.get(
   "/transactions/summary",
   validateSchema(transactionHeadersSchema, "headers"),
   getTransactionsSummary
+);
+transactionRouter.get(
+  "/transaction/:id",
+  validateSchema(transactionHeadersSchema, "headers"),
+  getTransactionById
+);
+transactionRouter.put(
+  "/transaction/:id",
+  validateSchema(transactionHeadersSchema, "headers"),
+  updateTransaction
+);
+transactionRouter.delete(
+  "/transaction/:id",
+  validateSchema(transactionHeadersSchema, "headers"),
+  deleteTransaction
 );
 
 export default transactionRouter;
