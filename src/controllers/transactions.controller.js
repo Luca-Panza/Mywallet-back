@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 
 export async function postTransaction(req, res) {
   const { authorization } = req.headers;
-  const { description, amount, categoryId } = req.body;
+  const { description, amount, categoryId, date } = req.body;
   const { type } = req.params;
   const token = authorization?.replace("Bearer ", "");
 
@@ -17,6 +17,7 @@ export async function postTransaction(req, res) {
     description: stripHtml(description).result.trim(),
     amount: amount,
     categoryId: categoryId,
+    date: date ? dayjs(date).toDate() : dayjs().toDate()
   };
 
   try {
@@ -39,7 +40,7 @@ export async function postTransaction(req, res) {
       id: user.id,
       type: cleanTransaction.type,
       description: cleanTransaction.description,
-      date: dayjs().toDate(),
+      date: cleanTransaction.date,
       amount: parseFloat(amount.toFixed(2)),
     };
 

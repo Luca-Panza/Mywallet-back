@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 
 export async function createCategory(req, res) {
   const { authorization } = req.headers;
-  const { name, type, icon } = req.body;
+  const { name, type, icon, description } = req.body;
   const token = authorization?.replace("Bearer ", "");
 
   if (!token) return res.status(401).send("Invalid token!\nPlease login again!");
@@ -14,6 +14,7 @@ export async function createCategory(req, res) {
     name: stripHtml(name).result.trim(),
     type: type,
     icon: stripHtml(icon).result.trim(),
+    description: stripHtml(description).result.trim()
   };
 
   try {
@@ -32,6 +33,7 @@ export async function createCategory(req, res) {
       name: cleanCategory.name,
       type: cleanCategory.type,
       icon: cleanCategory.icon,
+      description: cleanCategory.description,
     });
     
     if (newCategory) res.sendStatus(201);
@@ -60,7 +62,7 @@ export async function getCategories(req, res) {
 export async function updateCategory(req, res) {
   const { authorization } = req.headers;
   const { id } = req.params;
-  const { name, type, icon } = req.body;
+  const { name, type, icon, description } = req.body;
   const token = authorization?.replace("Bearer ", "");
 
   if (!token) return res.status(401).send("Invalid token!\nPlease login again!");
@@ -70,6 +72,7 @@ export async function updateCategory(req, res) {
     name: stripHtml(name).result.trim(),
     type: type,
     icon: stripHtml(icon).result.trim(),
+    description: stripHtml(description).result.trim()
   };
 
   try {
@@ -97,6 +100,7 @@ export async function updateCategory(req, res) {
           name: cleanCategory.name,
           type: cleanCategory.type,
           icon: cleanCategory.icon,
+          description: cleanCategory.description
         }
       }
     );
