@@ -13,4 +13,5 @@ export const transactionParamsSchema = joi.object({
 export const transactionBodySchema = joi.object({
   description: joi.string().min(4).required(),
   amount: joi.number().min(0.01).required(),
+  categoryId: joi.string().hex().length(24).optional().allow(null),
 });
