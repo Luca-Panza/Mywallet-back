@@ -24,13 +24,17 @@ Deployment on Render: <a href="https://mywallet-api-njln.onrender.com" target="_
 - JavaScript
 - Node.js
 - Express.js
+- Joi (validation)
 - StripHtml
 - Bcrypt
 - uuid
+- dotenv
 
 ***
 
 ## :rocket: Endpoints
+
+### Authentication
 
 ```yml
 POST /signUp
@@ -52,27 +56,123 @@ POST /signIn
         "password": "string"
        }
 ```
+
+### Transactions
     
 ```yml 
-POST /new-transaction/:id
-    - Endpoint to create an transaction for income or expense
-    - id: income or expense
+POST /new-transaction/:type
+    - Endpoint to create a transaction for income or expense
+    - type: income or expense
     - headers: {
-        "Authorization": `Bearer ${token}`
+        "Authorization": "token"
        }
     - body: {
         "description": "string",
-        "amount": "number"
+        "amount": number,
+        "category": "string" (optional)
        }
 ```
 
 ```yml 
 GET /transactions
     - Endpoint to list all the transactions from a user
-    - params: {}
     - headers: {
-        "Authorization": `Bearer ${token}`
+        "Authorization": "token"
        }
+    - body: {}
+```
+
+```yml 
+GET /transactions/summary
+    - Endpoint to get transaction summary by category
+    - headers: {
+        "Authorization": "token"
+       }
+    - body: {}
+```
+
+```yml 
+GET /transaction/:id
+    - Endpoint to get a specific transaction by ID
+    - headers: {
+        "Authorization": "token"
+       }
+    - params: { "id": "string" }
+    - body: {}
+```
+
+```yml 
+PUT /transaction/:id
+    - Endpoint to update a transaction
+    - headers: {
+        "Authorization": "token"
+       }
+    - params: { "id": "string" }
+    - body: {
+        "description": "string",
+        "amount": number,
+        "type": "income" or "expense",
+        "category": "string" (optional)
+       }
+```
+
+```yml 
+DELETE /transaction/:id
+    - Endpoint to delete a transaction
+    - headers: {
+        "Authorization": "token"
+       }
+    - params: { "id": "string" }
+    - body: {}
+```
+
+### Categories
+
+```yml 
+POST /categories
+    - Endpoint to create a new category
+    - headers: {
+        "Authorization": "token"
+       }
+    - body: {
+        "name": "string",
+        "type": "income" or "expense",
+        "icon": "string" (optional),
+        "description": "string" (optional)
+       }
+```
+
+```yml 
+GET /categories
+    - Endpoint to list all categories from a user
+    - headers: {
+        "Authorization": "token"
+       }
+    - body: {}
+```
+
+```yml 
+PUT /categories/:id
+    - Endpoint to update a category
+    - headers: {
+        "Authorization": "token"
+       }
+    - params: { "id": "string" }
+    - body: {
+        "name": "string",
+        "type": "income" or "expense",
+        "icon": "string" (optional),
+        "description": "string" (optional)
+       }
+```
+
+```yml 
+DELETE /categories/:id
+    - Endpoint to delete a category
+    - headers: {
+        "Authorization": "token"
+       }
+    - params: { "id": "string" }
     - body: {}
 ```
 
@@ -88,25 +188,38 @@ First, clone this repository on your machine:
 git clone https://github.com/Luca-Panza/Mywallet-back
 ```
 
+Then, navigate to the project folder and install the dependencies:
+
+```
+npm install
+```
+
+Create a `.env` file in the root of the project based on the `.env.example` file:
+
+```
+DATABASE_URL=mongodb://localhost:27017/mywallet
+PORT=5000
+```
+
 Before starting the application, make sure MongoDB is running on your machine by executing the following command:
 
 ```
 mongod --dbpath ~/.mongo
 ```
 
-Then, navigate to the project folder and install the dependencies with the following command:
+Or if you have MongoDB installed as a service:
 
 ```
-npm install
+sudo systemctl start mongod
 ```
 
-Once the process is finished, just start the server.
+Once everything is configured, start the server:
 
 ```
 npm start
 ```
 
-Or to test on a development server.
+Or to run in development mode with auto-reload:
 
 ```
 npm run dev
