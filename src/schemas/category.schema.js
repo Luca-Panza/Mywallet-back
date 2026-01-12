@@ -2,7 +2,7 @@ import joi from "joi";
 
 export const categoryHeadersSchema = joi
   .object({
-    authorization: joi.string().min(36).max(36).required(),
+    authorization: joi.string().min(36).required(),
   })
   .unknown(true);
 

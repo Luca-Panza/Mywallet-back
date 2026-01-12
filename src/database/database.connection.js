@@ -1,15 +1,24 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 
-dotenv.config();
+// Carregar variáveis de ambiente do arquivo correto baseado no ambiente
+if (process.env.NODE_ENV === 'test') {
+  dotenv.config({ path: '.env.test' });
+} else {
+  dotenv.config();
+}
 
-const mongoClient = new MongoClient(process.env.DATABASE_URL);
+const databaseUrl = process.env.DATABASE_URL;
+const mongoClient = new MongoClient(databaseUrl);
 
 try {
   await mongoClient.connect();
-  console.log("MongoDB Connected!");
+  if (process.env.NODE_ENV !== 'test') {
+    console.log("MongoDB Connected!");
+  }
 } catch (err) {
   console.log(err.message);
 }
 
 export const db = mongoClient.db();
+export { mongoClient };

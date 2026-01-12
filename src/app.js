@@ -11,5 +11,11 @@ app.get("/health", (req, res) => {
   res.send("OK!");
 });
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Port:${port}/`));
+// Exportar app para testes
+export default app;
+
+// Iniciar servidor apenas se não estiver em ambiente de teste
+if (process.env.NODE_ENV !== 'test') {
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => console.log(`Port:${port}/`));
+}
